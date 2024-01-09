@@ -18,11 +18,14 @@ var completedTasksHolder=document.getElementById("completed-tasks");//completed-
 var createNewTaskElement=function(taskString){
 
   var listItem=document.createElement("li");
-
+  listItem.className="list"
   //input (checkbox)
   var checkBox=document.createElement("input");//checkbx
+  checkBox.className="list__checkbox";
   //label
   var label=document.createElement("label");//label
+  label.innerText=taskString;
+  label.className="list__task";
   //input (text)
   var editInput=document.createElement("input");//text
   //button.edit
@@ -31,19 +34,18 @@ var createNewTaskElement=function(taskString){
   //button.delete
   var deleteButton=document.createElement("button");//delete button
   var deleteButtonImg=document.createElement("img");//delete button image
+  deleteButtonImg.className="list__image";
 
-  label.innerText=taskString;
-  label.className="input-section__task";
 
   //Each elements, needs appending
   checkBox.type="checkbox";
   editInput.type="text";
-  editInput.className="input-section__task";
+  editInput.className="list__text text";
 
   editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-  editButton.className="input-section__button_edit";
+  editButton.className="list__button-edit";
 
-  deleteButton.className="input-section__button_delete";
+  deleteButton.className="list__button-delete";
   deleteButtonImg.src="./remove.svg";
   deleteButton.appendChild(deleteButtonImg);
 
@@ -84,12 +86,12 @@ var editTask=function(){
 
   var editInput=listItem.querySelector("input[type=text]");
   var label=listItem.querySelector("label");
-  var editBtn=listItem.querySelector(".input-section__button_edit");
-  var containsClass=listItem.classList.contains("input-section__edit");
+  var editBtn=listItem.querySelector(".list__button-edit");
+  var containsClass=listItem.classList.contains("edit");
   //If class of the parent is .input-section__edit
   if(containsClass){
 
-    //switch to .input-section__edit
+    //switch to .edit
     //label becomes the inputs value.
     label.innerText=editInput.value;
     editBtn.innerText="Edit";
@@ -98,8 +100,8 @@ var editTask=function(){
     editBtn.innerText="Save";
   }
 
-  //toggle .input-section__edit on the parent.
-  listItem.classList.toggle("input-section__edit");
+  //toggle .edit on the parent.
+  listItem.classList.toggle("edit");
 };
 
 
@@ -156,8 +158,8 @@ var bindTaskEvents=function(taskListItem,checkBoxEventHandler){
   console.log("bind list item events");
 //select ListItems children
   var checkBox=taskListItem.querySelector("input[type=checkbox]");
-  var editButton=taskListItem.querySelector("button.input-section__button_edit");
-  var deleteButton=taskListItem.querySelector("button.input-section__button_delete");
+  var editButton=taskListItem.querySelector("button.list__button-edit");
+  var deleteButton=taskListItem.querySelector("button.list__button-delete");
 
 
   //Bind editTask to edit button.
